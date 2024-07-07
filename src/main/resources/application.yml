@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev # set dev profile as active one, spring will find it from its name 'application-dev'
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
+springdoc:
+  default-produces-media-type: application/json # default response type
+
+server:
+  servlet:
+    context-path: /api/v1 # default prefix for api

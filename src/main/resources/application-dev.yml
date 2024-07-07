@@ -1,0 +1,49 @@
+server:
+  port: 8080 # server port
+
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/book_social_network # database url (port, name etc)
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver # optional to let spring know which driver to use
+
+  jpa:
+    hibernate:
+      ddl-auto: update # update schema if needed on start up
+    show-sql:
+      true # show hibernates sql queries in console
+    properties:
+      hibernate:
+        format_sql: true # format sql queries
+    database: postgresql # tell jpa our database type so they can better prepare queries
+    database-platform: org.hibernate.dialect.PostgreSQLDialect # database management system
+
+  mail:
+    host: localhost
+    port: 1025
+    username: maildev
+    password: maildev
+    properties:
+      mail:
+        smtp:
+          trust: "*" # trust all certificates (not recommended for production)
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000 # 5 seconds
+        timeout: 3000
+        writetimeout: 5000
+
+application:
+  name: book-social-network
+  version: 1.0.0
+  description: A social network for book lovers
+  security: # security properties
+    jwt: # jwt properties
+      secret-key: 4z8sMKamVUReAJ0B26qhb8bLtIL82AqN # secret key for jwt
+      expiration: 86400000 # 24 hours in milliseconds
+  mailing:
+    frontend:
+      activation-url: http://localhost:8080/activate-account # activation url for frontend

@@ -1,0 +1,36 @@
+services:
+  postgres: # postgres service
+    container_name: postgres-sql-bsn
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data # where postgres data is stored
+      POSTGRES_DB: book_social_network # database name
+    volumes:
+      - postgres:/var/lib/postgresql/data # attach volume to store data
+    ports:
+      - 5432:5432 # postgres port
+    networks:
+      - spring-demo # attach to spring-demo network
+    restart: unless-stopped # restart policy
+
+  mail-dev: # maildev service for local mail server
+    container_name: mail-dev-bsn2
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+    networks:
+      - spring-demo # attach to spring-demo network
+    restart: unless-stopped # restart policy
+
+# networks allow containers to communicate with each other and external services
+networks:
+  spring-demo:
+    driver: bridge
+
+# volumes allow data to persist even after the container is stopped
+volumes:
+  postgres:
+    driver: local
